@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caroll|Home</title>
+    <link rel="stylesheet" href="./css/neno-text-style.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./iconfont.css">
+</head>
+<style>
+    *{
+      text-decoration: none;
+    }
+    body {
+        background-size: cover;
+        display:flex;
+        justify-content: space-evenly;
+        height: 100vh;
+        align-items: center;
+        }
+    .shell{
+      width: 100px;
+      height: 700px;
+      display: flex;
+      justify-content: center;
+      align-items:center;
+      flex-direction: column;
+      background-color: rgba(66, 121, 239, 0.5);
+      border-radius:10px;
+      transition:.3s;
+      overflow:hidden;
+    }
+    .box{
+      display: block;
+      font-weight: 700;
+      height: 15%;
+      width:85%;
+      margin:9px;
+      border-radius: 5px;
+      position:relative;
+      transition: .3s;
+      color:rgb(225, 225, 244);
+    }
+    .box i{
+      font-size:60px;
+      position:absolute;
+      margin:7px 0 0 13px;
+    }
+    .box:nth-child(2)::before{
+      content:'';
+      display: block;
+      width:100%;
+      height: 2px;
+      background-color: rgb(55,65,81);
+      position:absolute;
+      bottom:-10px;
+    }
+    .box span{
+      position:relative;
+      top:22px;
+      left:80px;
+      font:500 20px '';
+      opacity: 0;
+      transition: .1s;
+    }
+    .shell:hover{
+      width:400px;
+    }
+    .box:hover{
+      background-color: rgb(55,65,81);
+    }
+    .shell:hover span{
+      opacity: 1;
+    }
+    .box:hover{
+      color:#fff;
+    }
+   
+    .shining1 {
+      bottom:195px;
+        right:145px;
+        
+        position: absolute;
+    color: #cce7f8;
+    text-align: center;
+    font-size: 200px;
+    font-family: "Lucida Console", Courier, monospace;
+    -webkit-animation: shining 0.5s alternate infinite;
+    animation: shining 0.5s alternate infinite;
+    }
+    .shining2{
+      color: #cce7f8;
+    text-align: center;
+    font-size: 35px;
+    font-family: "Lucida Console", Courier, monospace;
+    -webkit-animation: shining 0.5s alternate infinite;
+    animation: shining 0.5s alternate infinite;
+    }
+    @-webkit-keyframes shining {
+        from {
+            text-shadow: 0 0 10px lightblue, 0 0 20px lightblue, 0 0 30px lightblue, 0 0 40px skyblue, 0 0 50px skyblue, 0 0 60px skyblue;
+        }
+
+        to {
+            text-shadow: 0 0 5px lightblue, 0 0 10px lightblue, 0 0 15px lightblue, 0 0 20px skyblue, 0 0 25px skyblue, 0 0 30px skyblue;
+        }
+    }
+    #box1 {
+        bottom:200px;
+        right:100px;
+        
+        position: absolute;
+    }
+    p {
+        color: #cce7f8;
+        text-align: left;
+        font-size: 35px;
+    }
+    .logo {
+      position: absolute;
+      right:20px;
+      top:10px;
+      width: 50px;
+				height: 50px;
+				border: 1px solid rgb(79, 155, 209);
+				border-radius: 100%;
+				overflow: hidden;
+    }
+    .logo img {
+      width:50px;
+      height: 50px;
+      max-height: 100%;
+    }
+    .name {
+      position: absolute;
+      width: 100px;
+            height: 60px;
+      right: 8px;
+      top:8px;
+      
+    }
+    .name>a {
+      position: absolute;
+      width: 160px;
+            height: 75px;
+      right: 85px;
+      top:8px;
+      display: flex;
+      font:900 20px '';
+      text-align:center;
+            display: block;
+            height:24px;
+            padding:12px;
+            border-radius: 10px;
+            margin-top:2px;
+            color:#fff;
+            letter-spacing:3px;
+            background-image: linear-gradient(to left,#ebeef2ef,#62a7f5);
+            box-shadow: 0 0 30px #039cfbe8;
+    }
+    .name>a:hover {
+      text-align:center;
+            display: block;
+            height:24px;
+            padding:12px;
+            font:900 20px '';
+            border-radius: 10px;
+            margin-top:2px;
+            color:#fff;
+            letter-spacing:3px;
+            background-image: linear-gradient(to left,#6ea5f6,#0077ff);
+            box-shadow: 0 0 30px #039cfbe8;
+    }
+    .file-style
+{
+  position: absolute;
+      width: 160px;
+            height: 75px;
+      right: 85px;
+      top:8px;
+      display: flex;
+      font:900 20px '';
+      text-align:center;
+            display: block;
+            height:24px;
+            padding:12px;
+            border-radius: 10px;
+            margin-top:2px;
+            color:#fff;
+            letter-spacing:3px;
+            background-image: linear-gradient(to left,#ebeef2ef,#62a7f5);
+            box-shadow: 0 0 30px #039cfbe8;
+}
+.file-style:hover
+{
+  text-align:center;
+            display: block;
+            height:24px;
+            padding:12px;
+            font:900 20px '';
+            border-radius: 10px;
+            margin-top:2px;
+            color:#fff;
+            letter-spacing:3px;
+            background-image: linear-gradient(to left,#6ea5f6,#0077ff);
+            box-shadow: 0 0 30px #039cfbe8;
+}
+#file
+{
+    width:100%;
+    height:50px;
+    opacity:0;
+    cursor:pointer;
+    position:absolute;
+}
+
+</style>
+<body background="./背景.webp">
+  <!-- <video src="./goat/image/synth city by VISUALDON 4K 60 FPS.mp4" loop autoplay muted></video> -->
+    <div class="shell">
+        <a href="./index.html"  class="box"><i class="iconfont icon-fenlei"></i><span>Classification</span></a>
+        <a href="./author.html" class="box"><i class="iconfont icon-zuozhe"></i><span>Author</span></a>
+        <a href="./history.html" class="box"><i class="iconfont icon-lishi"></i><span>History of Photography</span></a>
+        <a href="#" class="box"><i class="iconfont icon-sheying"></i><span>Fundamentals of Cameras</span></a>
+        <a href="#" class="box"><i class="iconfont icon-tupian"></i><span>Picture Composition</span></a>
+        <a href="#" class="box"><i class="iconfont icon-puguang"></i><span>Application of Light</span></a>
+        <a href="#" class="box"><i class="iconfont icon-yanjiuzhulu"></i><span>Aesthetic Cultivation</span></a>
+        <a href="#" class="box"><i class="iconfont icon-bianji"></i><span>Image Editing</span></a>
+    </div>
+        
+    <div class="file-style">
+      <input type="file" onChange="add_files(this.files)" id="file" name="file">UpLoad
+  </div>
+      <div class="logo">
+        <img src="./log.jpg" alt="">
+          
+      </div>
+      <hr>
+      <h1 class="shining1">Caroll</h1>
+      <div id="box1">
+      <p class="shining2">--Camera rolls the world</p>
+  
+        <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+</html>

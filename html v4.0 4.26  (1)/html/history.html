@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Caroll|History of  Photography</title>
+</head>
+<style>
+    /* body {
+	background: #efefef;
+} */
+.page-block {
+	width: 1100px;
+	/* background: rgba(255,255,255,0.3); */
+	margin: auto auto;
+}
+.page-block h1 {
+	text-align: center;
+}
+.article-hover{
+	height: 150px;
+	background: rgba(255,255,255,0.3);
+}
+.article-hover:hover{
+	background: rgba(127, 198, 211,0.5);
+}
+.thumbnail {
+	width: 250px;
+	height: 150px;
+	display: flex;
+	align-items: center;
+	float: left;
+}
+.thumbnail img {
+	width: 200px;
+	height: 130px;
+	margin: 0 auto;
+}
+.info-content {
+	width: 850px;
+	height: 150px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.info-content a {
+	color: #000000;
+	text-decoration: none;
+	display: inline-block;
+	border: 1px solid #cdcdcd;
+	padding:4px 10px 5px;
+	border-radius: 10px;
+}
+.info-content a:hover {
+	background: linear-gradient(to right,rgb(79, 155, 209),rgb(79, 155, 209));
+	color: #fff;
+} 
+.li-title{
+	width: 850px;
+	font-size: 24px;
+	font-weight: 700;
+	text-align: left;
+}
+.li-content{
+	width: 830px;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: left;
+}
+.page-icon{
+	width: 1200px;
+	margin: 35px auto 0;
+	font-size:0;
+	text-align:center;
+}
+.page-icon button {
+	border: none;
+	background-color: rgba(255,255,255,0);
+	padding:4px 10px 5px;
+	font-size:20px;
+}
+.page-icon button:nth-child(3), .page-icon button:nth-child(4) {
+	cursor: default;
+}
+.page-icon button img {
+	width: 20px;
+	height: 20px;
+}
+#totalPage, #currentPage {
+	cursor: default;
+	border: none;
+	background-color:  rgba(255,255,255,0);
+	padding:4px 10px 5px;
+	font-size:20PX;
+}
+#currentPage {
+	cursor: auto;
+	text-align: center;
+	width: 40px;
+}
+.page-1{
+	display: block;
+}
+.page-2, .page-3{
+	display: none;
+}
+hr {
+	opacity: 50%;
+}
+h1 {
+    font-size: 62px;
+    font-family:  "Lucida Console", Courier, monospace;
+}
+</style>
+<body background="./背景.h.webp">
+	<!-- 内容块 -->
+	<div class="page-block">
+		<div class="page-1">
+			<h1>Page 1</h1>
+			<div class="article-hover">
+				<div class="thumbnail">
+					<img src="./imgs/thumbnail/1.jpeg" alt="">
+				</div>
+				
+				<div class="info-content" onmouseover="light(this)" onmouseout="normal(this)">
+					<div class="li-title">
+						推荐读物一
+					</div>
+					<div class="li-content">
+						content 
+					</div>
+					<a href="#">查看详情</a>
+				</div>
+			</div>
+			<hr/>
+			<div class="article-hover">
+				<div class="thumbnail">
+					<img src="./imgs/thumbnail/2.jpg" alt="">
+				</div>
+				
+				<div class="info-content" onmouseover="light(this)" onmouseout="normal(this)">
+					<div class="li-title">
+						推荐读物二
+					</div>
+					<div class="li-content">
+						content
+					</div>
+					<a href="#">查看详情</a>
+				</div>
+			</div><hr>
+            <div class="article-hover">
+				<div class="thumbnail">
+					<img src="./imgs/thumbnail/2.jpg" alt="">
+				</div>
+				
+				<div class="info-content" onmouseover="light(this)" onmouseout="normal(this)">
+					<div class="li-title">
+						推荐读物三
+					</div>
+					<div class="li-content">
+						content
+					</div>
+					<a href="#">查看详情</a>
+				</div>
+			</div><hr>
+            <div class="article-hover">
+				<div class="thumbnail">
+					<img src="./imgs/thumbnail/2.jpg" alt="">
+				</div>
+				
+				<div class="info-content" onmouseover="light(this)" onmouseout="normal(this)">
+					<div class="li-title">
+						推荐视频一
+					</div>
+					<div class="li-content">
+						content
+					</div>
+					<a href="#">查看详情</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-2">
+			<h1>Page 2</h1>
+			... ...
+		</div>
+		
+		<div class="page-3">
+			<h1>Page 32</h1>
+			... ...
+		</div>
+	</div>
+	<!-- 分页按钮 -->
+	<div class="page-icon">
+		<button class="firstPage" onclick="first_click()" ><img src="./chevron_duo_left.png"/></button>
+		<button class="beforePage" onclick="prev_click()" ><img src="./chevron_left.png"/></button>
+		<button>第<input id="currentPage" onchange="choose_page()" type="text" value="1"/>页</button>
+		<button>/&nbsp;&nbsp;&nbsp;共<input id="totalPage" type="button" value="3" readonly="readonly">页</button>
+		<button class="nextPage" onclick="next_click()"><img src="./chevron_right.png"/></button>
+		<button class="lastPage" onclick="last_click()"><img src="./chevron_duo_right.png"/></button>			
+	</div>
+    <script>
+        // 定义一个数组，保存当前所有页面的class name
+var page_index = ["page-1", "page-2", "page-3"];
+
+// 输入pagename，打开指定的div，隐藏其他的div
+function page_option(pagename){
+	var tar_index = page_index.indexOf(pagename);
+	page_index.slice(tar_index, 1);
+	for (var j = 0; j < page_index.length ; j++){
+		var close_div = document.getElementsByClassName(page_index[j]);
+		for (var i = 0; i<close_div.length;i++) {
+			   close_div[i].style.display="none";
+		};
+	}
+	
+	var opendiv = document.getElementsByClassName(pagename);
+	for (var i = 0; i<opendiv.length;i++) {
+		   opendiv[i].style.display="block";
+	};
+}
+
+// 点击 返回第一页按钮 执行的操作
+function first_click(){
+	page_option("page-1");
+	document.getElementById('currentPage').value=1;
+}
+
+// 点击 跳到最后一页按钮 执行的操作
+function last_click(){
+	var total_page = document.getElementById('totalPage').value;
+	page_option(page_index[page_index.length - 1]);
+	document.getElementById('currentPage').value=total_page;
+}
+
+// 点击 上一页按钮 执行的操作
+function prev_click(){
+	var cur_page = document.getElementById('currentPage').value;
+	if (cur_page > 1){
+		document.getElementById('currentPage').value=parseInt(cur_page)-1;
+		var pagename = page_index[parseInt(cur_page)-2];
+		page_option(pagename);
+	}
+}
+
+// 点击 下一页按钮 执行的操作
+function next_click(){
+	var cur_page = document.getElementById('currentPage').value;
+	var total_page = document.getElementById('totalPage').value;
+	if (cur_page < total_page){
+		document.getElementById('currentPage').value=parseInt(cur_page) + 1;
+		var pagename = page_index[parseInt(cur_page)];
+		page_option(pagename);
+	}
+}
+
+// 手动改变当前页码时执行的操作
+function choose_page(){
+	var cur_page = document.getElementById('currentPage').value;
+	var pagename = page_index[parseInt(cur_page)-1];
+	page_option(pagename);
+}
+
+// 鼠标事件，经过每一条资讯时改变标题的颜色
+function light(obj){
+	obj.firstElementChild.style.color="rgb(79, 155, 209)";
+}
+
+function normal(obj){
+	obj.firstElementChild.style.color="#000000";
+}
+    </script>
+<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+</html>
+
+</html>
