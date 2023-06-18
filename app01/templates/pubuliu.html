@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类展示</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #aea5bb;
+    }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        position: relative;
+        right: 2%;
+    }
+
+    .container img {
+        position: absolute;
+        transition: 0.3s;
+    }
+
+    .navbar {
+        width: 100%;
+        background-color: #1e2133;
+        overflow: auto;
+    }
+
+    /* 导航栏链接 */
+    .navbar a {
+        float: left;
+        text-align: center;
+        padding: 18px 100px;
+        color: white;
+        text-decoration: none;
+        font-size: 19px;
+    }
+
+    /* 鼠标悬停时的导航栏链接 */
+    .navbar a:hover {
+        background-color: #c69fa1;
+    }
+
+    /* 当前/活动导航栏链接 */
+    .active1 {
+        background-color: #806980;
+    }
+
+    /* 添加响应能力 - 将自动在小于 500 像素的屏幕上垂直而不是水平显示导航栏 */
+    @media screen and (max-width: 500px) {
+        .navbar a {
+            float: none;
+            display: block;
+        }
+    }
+
+    .menu-box {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+    }
+
+    .menu-button {
+        width: 50px;
+        height: 50px;
+        background-color: #7d6d88;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px #a499ac;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+    }
+
+    .menu-button:hover {
+        background-color: #8a7c94;
+        box-shadow: 0 0 0 4px #b1a7b8;
+    }
+
+    .menu-button .line-box {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: transform 0.3s ease-out;
+    }
+
+    .menu-button .line {
+        background-color: #fff;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+    }
+
+    .menu-button .line:first-child {
+        width: 50%;
+        transform-origin: right;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-button .line:last-child {
+        width: 50%;
+        align-self: flex-end;
+        transform-origin: left;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-list {
+        width: 120px;
+        height: 240px;
+        background-color: white;
+        border-radius: 8px;
+        list-style: none;
+        padding: 6px;
+        box-shadow: 0 0 0 4px #7d6d88;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        opacity: 0;
+        transform: scale(0);
+        transform-origin: bottom right;
+        transition: 0.3s ease;
+        transition-delay: 0.1s;
+    }
+
+    .menu-list li {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: #7d6d88;
+        cursor: pointer;
+        position: relative;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: 0.2s ease-in;
+    }
+
+    .menu-list li:hover {
+        color: black;
+    }
+
+    .menu-list li::before {
+        content: "";
+        width: calc(100% - 24px);
+        height: 1px;
+        background-color: #7d6d88;
+        position: absolute;
+        bottom: 0;
+        left: 12px;
+    }
+
+    .menu-list li:last-child::before {
+        display: none;
+    }
+
+    .menu-list .fa {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-list a {
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 8px;
+    }
+
+    .active .line-box {
+        transform: rotate(-45deg);
+    }
+
+    .active .line-box .line:first-child {
+        transform: rotate(-90deg) translateX(1px);
+    }
+
+    .active .line-box .line:last-child {
+        transform: rotate(-90deg) translateX(-1px);
+    }
+
+    .active .menu-list {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .active .menu-list li {
+        animation: fade-in-item 0.4s linear forwards;
+    }
+
+    .active .menu-list li:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .active .menu-list li:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .active .menu-list li:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .active .menu-list li:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .active .menu-list li:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .active .menu-list li:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+    @keyframes fade-in-item {
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+</style>
+<body>
+<!-- 添加导航栏 -->
+<div class="navbar">
+    <a class="active1" href="{% url 'pubuliu' %}">Scenery</a>
+    <a href="{% url 'pubuliu2' %}">Portrait</a>
+    <a href="{% url 'pubuliu3' %}">Cute pet</a>
+</div>
+<br><br><br>
+<div class="container"></div>
+<div class="menu-box">
+    <div class="menu-button">
+        <div class="line-box">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <ul class="menu-list">
+        <li><i class="fa fa-fw fa-home"></i><a style="color:inherit;" href="{% url 'home2' %}">Home</a></li>
+        <li><i class="fa fa-clone"></i><a style="color:inherit;" href="{% url 'author' %}">Author</a></li>
+        <li><i class="fa fa-image"></i><a style="color:inherit;" href="{% url 'shicha' %}">Layout</a></li>
+        <li><i class="fa fa-yelp"></i><a style="color:inherit;" href="{% url 'awa' %}">Light</a></li>
+        <li><i class="fa fa-instagram"></i><a style="color:inherit;" href="{% url 'maoboli' %}">Editing</a></li>
+        <li><i class="fa fa-sliders"></i><a style="color:inherit;" href="{% url 'light' %}">Camera</a></li>
+    </ul>
+</div>
+
+
+</body>
+<script>
+    const container = document.querySelector('.container');
+    let img_width = 320;
+    {% load static %}
+    function createImgs() {
+        for (let i = 1; i <= 15; i++) {
+
+            let src = `{% static 'img/styleImg/2' %}/${i}.jpg`;
+            let img = document.createElement('img');
+            img.src = src;
+            img.width = img_width;
+            img.onload = setPositions;
+            container.appendChild(img);
+        }
+    }
+
+    createImgs();
+
+    function cal() {
+        let container_width = container.clientWidth;
+        let colums = Math.floor(container_width / img_width);
+        let space_number = colums + 1;
+        let left_space = container_width - colums * img_width;
+        let space = left_space / space_number;
+        return {
+            space: space,
+            colums: colums
+        };
+    }
+
+    function setPositions() {
+        let info = cal();
+        let next_tops = new Array(info.colums);
+        next_tops.fill(0);
+        for (let i = 0; i < container.children.length; i++) {
+            let img = container.children[i];
+            let min_top = Math.min.apply(null, next_tops);
+            img.style.top = min_top + 'px';
+            let index = next_tops.indexOf(min_top);
+            next_tops[index] += img.height + info.space;
+            let left = (index + 1) * info.space + index * img_width;
+            img.style.left = left + 'px';
+        }
+        let max = Math.max.apply(null, next_tops);
+        container.style.height = max + 'px';
+    }
+
+    //window.onload=setPositions;
+    let timer = null;
+    window.onresize = function () {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(setPositions, 100);
+    }
+    const menu_box = document.querySelector('.menu-box');
+    const menu_button = document.querySelector('.menu-button');
+
+    menu_button.addEventListener('click', function () {
+        menu_box.classList.toggle('active');
+    })
+</script>
+</html>

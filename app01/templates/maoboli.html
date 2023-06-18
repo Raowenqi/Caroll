@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毛玻璃特效</title>
+    {% load static %}
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .kaiguan {
+        position: absolute;
+        top: 20px;
+        right: 50px;
+        width: 40px;
+        height: 20px;
+        border: 2px solid black;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 3s;
+    }
+
+    .bai {
+
+        position: absolute;
+        top: 1.5px;
+        left: 2px;
+        height: 13px;
+        width: 13px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+        transition: all 1s;
+    }
+
+    .hei {
+
+        position: absolute;
+        top: 1.5px;
+        right: 2px;
+        height: 13px;
+        width: 13px;
+        background-color: rgb(11, 243, 81);
+        border-radius: 50%;
+        transition: all 1s;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "img/mountain.jpg" %}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        filter: blur(6px);
+        overflow: hidden;
+    }
+
+    .image::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+    }
+
+    .cursor {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        border: 8px solid rgba(255, 255, 255, 0.25);
+        position: absolute;
+        background-image: url('{% static "img/mountain.jpg" %}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="image"></div>
+    <div class="cursor"></div>
+</div>
+</div>
+<div class="kaiguan">
+    <div class="bai" id="anniu"></div>
+</div>
+</body>
+<script>
+    const container = document.querySelector('.container');
+    const cursor = document.querySelector('.cursor');
+    container.addEventListener('mousemove', function (e) {
+        let contRect = container.getBoundingClientRect();
+        let cursRect = cursor.getBoundingClientRect();
+        let cursX = e.clientX - contRect.left - cursRect.width / 2;
+        let cursY = e.clientY - contRect.top - cursRect.height / 2;
+        cursor.style.left = `${cursX}px`;
+        cursor.style.top = `${cursY}px`;
+    })
+
+
+    var anniu = document.getElementById('anniu');
+    var kaiguan = document.querySelector('.kaiguan');
+    var image = document.querySelector('.image');
+    var temp = 1;
+    anniu.addEventListener('click', function () {
+        if (temp === 1) {
+            this.className = 'hei';
+            temp = 0;
+            kaiguan.style.border = '2px solid  rgb(11, 243, 81)';
+            image.style.filter = 'brightness(35%)'
+        } else {
+            this.className = 'bai';
+            temp = 1;
+            kaiguan.style.border = '2px solid black';
+            image.style.filter = 'blur(6px)';
+        }
+
+    })
+</script>
+</html>

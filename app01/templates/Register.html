@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login2</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+
+        body {
+            height: 100vh;
+            background-image: url({% static '背景.jpg' %});
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding-bottom: 30px;
+        }
+
+        .login {
+            margin: 30px auto;
+            width: 700px;
+            display: flex;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.557), rgba(255, 255, 255, 0.526), rgba(255, 255, 255, 0.497));
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px #049bf974;
+        }
+
+        .table {
+            font: 900 40px '';
+            text-align: center;
+            letter-spacing: 5px;
+            color: #0791faed;
+
+        }
+
+        .box {
+            overflow: auto;
+            margin: 50px;
+        }
+
+        .input {
+            width: 100%;
+            margin-bottom: 20px;
+            outline: none;
+            border: 0;
+            padding: 10px;
+            background-color: transparent;
+            border-bottom: 3px solid rgba(4, 180, 238, 0.827);
+            font: 900 16px '';
+        }
+
+        .input2 {
+            width: 50%;
+            margin-bottom: 10px;
+            outline: none;
+            border: 0;
+            padding: 10px;
+            background-color: transparent;
+            border-bottom: 3px solid rgba(4, 180, 238, 0.827);
+            font: 900 16px '';
+            display: inline-block;
+        }
+
+        .box label {
+            font: 900 16px '';
+
+        }
+
+        .go2 {
+            text-align: center;
+            display: inline;
+            height: 48px;
+            width: 500px;
+            padding: 12px;
+            font: 900 20px '';
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-left: 10%;
+            color: #fff;
+            letter-spacing: 1px;
+            background-image: linear-gradient(to left, #5b9af9, #c4d9f1);
+        }
+
+        .go2:hover {
+            text-align: center;
+            display: inline;
+            height: 48px;
+            width: 500px;
+            padding: 12px;
+            font: 900 20px '';
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-left: 10%;
+            color: #fff;
+            letter-spacing: 1px;
+            background-image: linear-gradient(to left, #0258f7, #82bafa);
+        }
+
+        .go {
+            text-align: center;
+            display: inline-block;
+            height: 48px;
+            width: 220px;
+            padding: 12px;
+
+            font: 600 20px '';
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #fff;
+            letter-spacing: 1px;
+            background-image: linear-gradient(to left, #5b9af9, #c4d9f1);
+        }
+
+        .go:hover {
+            text-align: center;
+            display: inline-block;
+            height: 48px;
+            width: 220px;
+            padding: 12px;
+            font: 600 20px '';
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #fff;
+            letter-spacing: 1px;
+            background-image: linear-gradient(to left, #0258f7, #82bafa);
+        }
+
+        .error-msg {
+            color: red;
+            position: absolute;
+            font-size: 13px;
+            margin-top: -20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="login">
+    <div class="box">
+        <p class="table">Welcome to Caroll !</p>
+        <br>
+        <form id="regForm" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+                {{ field }}
+                <span class="error-msg"></span>
+            {% endfor %}
+            <br>
+            <label for="code">验证码</label>
+            <div>
+                <input type="text" id="code" name="code" class="input2" placeholder="请输入验证码" style="width: 50%" required>
+                <input id='btnSms' type="button" class='go' value="短信获取验证码">
+            </div>
+            <br>
+            <input id="btnSubmit" type="button" class="go2" value="注 册" />
+        </form>
+    </div>
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="{% static 'plugin/bootstrap/js/bootstrap.js' %}"></script>
+<script>
+    /*验证码按钮绑定事件*/
+    $(function () {
+        bindClickBtnSms();
+        bindClickSubmit();
+    });
+
+    function bindClickSubmit() {
+        $('#btnSubmit').click(function () {
+
+            $('.error-msg').empty();
+            //数据ajax发送后台
+            $.ajax({
+                url: "",
+                type: "POST",
+
+                data: $('#regForm').serialize(),
+
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.status === true) {
+                        location.href = res.data;
+                    } else {
+                        $.each(res.error, function (key, value) {
+                            $('#id_' + key).next().text(value[0]);
+                        })
+                    }
+                }
+            })
+        })
+    }
+
+    function bindClickBtnSms() {
+        $('#btnSms').click(function () {
+            $('.error-msg').empty();
+            //获取手机号
+            var mobilePhone = $('#id_mobile_phone').val();
+            $.ajax({
+                url: "/send/sms",
+                type: 'GET',
+                data: {mobile_phone: mobilePhone},
+                dataType: "JSON",
+                success: function (res) {
+                    console.log(res.status)
+                    if (res.status === false) {
+                        $.each(res.error, function (key, value) {
+                            $('#id_' + key).next().text(value[0]);
+                        })
+                    }
+
+                    sendSmsRemind();
+
+
+                }
+            })
+        })
+    }
+
+    function sendSmsRemind() {
+        const $smsBtn = $('#btnSms');
+
+        $smsBtn.prop('disabled', true);
+        let time = 60;
+        const remind = setInterval(function () {
+            $smsBtn.val(time + "秒重新发送");
+            time = time - 1;
+            if (time < 1) {
+                clearInterval(remind);
+                $smsBtn.val('短信获取验证码').prop('disabled', false);
+            }
+        }, 1000)
+    }
+
+</script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</body>
+</html>

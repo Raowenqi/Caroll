@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相机基础</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /*增加页数.bg2之类的*/
+            /*向左滑动切换*/
+            height: 200vh;
+        }
+
+        .bg {
+            background-image: url("{% static 'img/wg.jpg' %}");
+            background-size: cover;
+            background-position: 50% 50%;
+            height: 100vh;
+            position: relative;
+            font-size: 120px;
+            font-weight: 600;
+            text-align: center;
+            background-clip: initial;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        .bg::before {
+            content: "";
+            background-image: inherit;
+            background-size: cover;
+            background-position: 50% 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -99;
+        }
+
+        .bg1 {
+            background-color: #141213;
+            background-image: url("{% static 'img/gt.jpeg' %}");
+            height: 100vh;
+        }
+
+        .bg2 {
+            background-image: url("{% static 'img/2.jpg' %}");
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .bg3 {
+            background-image: url("{% static 'img/3.jpg' %}");
+            background-size: cover;
+            height: 100vh;
+        }
+
+        h2 {
+            position: absolute;
+            left: 15%;
+            top: 20px;
+            width: 70%;
+            text-align: center;
+            letter-spacing: 8px;
+            color: #84b0c9;
+            font-size: 14px;
+        }
+
+        h1 {
+            position: absolute;
+            top: 115vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75%;
+            color: #d5dde1;
+            letter-spacing: 10px;
+            padding: 70px 20px;
+            font-size: 16px;
+            text-align: left;
+            background-color: rgba(48, 159, 181, 0.25);
+            border: 30px ridge rgba(48, 159, 181, 0.25);
+        }
+
+        .first {
+            font-size: 18px;
+            color: #84b0c9;
+            display: inline-block;
+        }
+
+        .ff {
+            font-size: 36px;
+            color: #5f8aa3;
+            display: inline-block;
+        }
+
+        .menu-box {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+        }
+
+        .menu-button {
+            width: 50px;
+            height: 50px;
+            background-color: #1e7bad;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(48, 159, 181, 0.15);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            transition: 0.2s ease-in;
+        }
+
+        .menu-button:hover {
+            background-color: #155b80;
+            box-shadow: 0 0 0 4px rgba(48, 159, 181, 0.3);
+        }
+
+        .menu-button .line-box {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.3s ease-out;
+        }
+
+        .menu-button .line {
+            background-color: #fff;
+            width: 100%;
+            height: 2px;
+            border-radius: 2px;
+        }
+
+        .menu-button .line:first-child {
+            width: 50%;
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-button .line:last-child {
+            width: 50%;
+            align-self: flex-end;
+            transform-origin: left;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-list {
+            width: 120px;
+            height: 240px;
+            background-color: rgba(153, 200, 210, 0.3);
+            border-radius: 8px;
+            list-style: none;
+            padding: 6px;
+            box-shadow: 0 0 0 4px rgba(48, 159, 181, 0.15);
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: 0.3s ease;
+            transition-delay: 0.1s;
+        }
+
+        .menu-list li {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: #1e7bad;
+            cursor: pointer;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: 0.2s ease-in;
+        }
+
+        .menu-list li:hover {
+            color: aliceblue;
+        }
+
+        .menu-list li::before {
+            content: "";
+            width: calc(100% - 24px);
+            height: 1px;
+            background-color: rgba(92, 103, 255, 0.15);
+            position: absolute;
+            bottom: 0;
+            left: 12px;
+        }
+
+        .menu-list li:last-child::before {
+            display: none;
+        }
+
+        .menu-list .fa {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-list a {
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .active .line-box {
+            transform: rotate(-45deg);
+        }
+
+        .active .line-box .line:first-child {
+            transform: rotate(-90deg) translateX(1px);
+        }
+
+        .active .line-box .line:last-child {
+            transform: rotate(-90deg) translateX(-1px);
+        }
+
+        .active .menu-list {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .active .menu-list li {
+            animation: fade-in-item 0.4s linear forwards;
+        }
+
+        .active .menu-list li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .active .menu-list li:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .active .menu-list li:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .active .menu-list li:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .active .menu-list li:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .active .menu-list li:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fade-in-item {
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<h2>When taking a photo, how do you arrange visual elements to guide the viewer’s eye towards the subject? <br>
+    This requires the use of composition techniques, which is one of the most important skills in photography that
+    determines whether a photo has sufficient visual appeal and impact.</h2>
+<div class="bg">
+    <span><br><br>Picture Composition</span>
+</div>
+<h1>
+    <div class="first">
+        <div class="ff"> C</div>
+        omposition can be used to create different visual characteristics such as contrast, balance, shape, line,
+        pattern, repetition, scale, and space. These elements can make the viewer’s eye wander within the frame,
+        producing different feelings and meanings.
+    </div>
+    <br><br><br>
+    <div class="first">Perspective:</div>
+    Considering the frame’s perspective, whether it is sufficient to show the subject and create the photo’s atmosphere
+    and feeling.<br><br>
+    <div class="first">Contrast:</div>
+    Contrast can create visual impact, photographers can contrast elements such as color, shape, and size.
+    <div class="first">Balance:</div>
+    Elements within the frame need to be balanced to create a light, stable layout.<br><br>
+    <div class="first">Line:</div>
+    Photographers can use lines to create contours and shapes, and guide the viewer’s eye.<br><br>
+    <div class="first">Techniques:</div>
+    Photographers can use the rule of thirds, the golden ratio, or other composition techniques to balance the frame.
+    <br><br><br><br>In summary, good composition is key to a photo’s success in conveying information effectively. By
+    mastering composition techniques, photographers can create balanced, effective, and attention-grabbing photos.<br>
+</h1>
+<div class="menu-box">
+    <div class="menu-button">
+        <div class="line-box">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <ul class="menu-list">
+        <li><i class="fa fa-fw fa-home"></i><a style="color:inherit;" href="{% url 'home2' %}">Home</a></li>
+        <li><i class="fa fa-clone"></i><a style="color:inherit;" href="{% url 'author' %}">Author</a></li>
+        <li><i class="fa fa-image"></i><a style="color:inherit;" href="{% url 'shicha' %}">Layout</a></li>
+        <li><i class="fa fa-yelp"></i><a style="color:inherit;" href="{% url 'awa' %}">Light</a></li>
+        <li><i class="fa fa-instagram"></i><a style="color:inherit;" href="{% url 'maoboli' %}">Editing</a></li>
+        <li><i class="fa fa-sliders"></i><a style="color:inherit;" href="{% url 'light' %}">Camera</a></li>
+    </ul>
+</div>
+<div class="bg1"></div>
+<!-- <div class="bg2"></div>
+<div class="bg3"></div> -->
+</body>
+<script>
+    const bg = document.querySelector(".bg");
+    document.addEventListener("scroll",
+        function () {
+            const scrollY = window.scrollY;
+            if (scrollY !== 0) {
+                bg.style.backgroundPosition = "calc(50% + " + scrollY + "px) calc(50% + " + scrollY + "px)";
+            } else {
+                bg.style.backgroundPosition = "";
+            }
+        })
+    const menu_box = document.querySelector('.menu-box');
+    const menu_button = document.querySelector('.menu-button');
+
+    menu_button.addEventListener('click', function () {
+        menu_box.classList.toggle('active');
+    })
+</script>
+</html>

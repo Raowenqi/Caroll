@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login2</title>
+    {% load static %}
+    <style>
+        *{
+            padding: 0;
+            margin:0;
+            text-decoration: none;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height:100vh;
+            background-image: url({% static 'img/背景.jpg' %});
+            background-size: cover;
+        }
+        .login{
+            width: 550px;
+            height: 400px;
+            display: flex;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+            background:linear-gradient(to right bottom,rgba(255, 255, 255, 0.557),rgba(255, 255, 255, 0.526),rgba(255, 255, 255, 0.497));
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px #049bf974;
+        }
+        .table{
+            font: 900 40px '';
+            text-align:center;
+            letter-spacing:5px;
+            color:#0791faed;
+        }
+        .box{
+            overflow:hidden;
+        }
+        .box input{
+            width:100%;
+            margin-bottom: 20px;
+            outline:none;
+            border:0;
+            padding:10px;
+            background-color: transparent;
+            border-bottom:3px solid rgba(4, 180, 238, 0.827);
+            font: 900 16px '';
+        }
+        .go{
+            text-align:center;
+            display: block;
+            width: 100%;
+            height:40px;
+            border: none;
+            font:900 20px '';
+            border-radius: 10px;
+            margin-top:20px;
+            color:#fff;
+            letter-spacing:1px;
+            background-image: linear-gradient(to left,#5b9af9,#c4d9f1);
+        }
+        .go:hover{
+            text-align:center;
+            display: block;
+            font:900 20px '';
+            border-radius: 10px;
+            margin-top:20px;
+            color:#fff;
+            letter-spacing:1px;
+            background-image: linear-gradient(to left,#0258f7,#82bafa);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login">
+        <div class="box">
+            <p class="table">Welcome to Caroll !</p>
+            <br>
+            <form method="POST" action>
+            {% csrf_token %}
+            <input type="text" placeholder="请输入账号" name="username" required>
+            <input type="password" placeholder="请输入密码" name="password" required>
+            <br>
+                {% if msg %}
+                    <p style="color: red">{{ msg }}</p>
+                {% endif %}
+            <button type="submit" class='go'>登录</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caroll|Author</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "montserrat";
+    }
+
+    .kaiguan {
+        position: absolute;
+        top: 20px;
+        right: 50px;
+        width: 40px;
+        height: 20px;
+        border: 2px solid black;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 3s;
+    }
+
+    .bai {
+
+        position: absolute;
+        top: 1.5px;
+        left: 2px;
+        height: 13px;
+        width: 13px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+        transition: all 1s;
+    }
+
+    .hei {
+
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        height: 13px;
+        width: 13px;
+        background-color: rgb(11, 243, 81);
+        border-radius: 50%;
+        transition: all 1s;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        transition: all 1s;
+        cursor: url({% url 'img/鼠标.png' %}), auto;
+        background: #ddd;
+    }
+
+    .middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /** 链接指针样式**/
+    a:hover {
+        cursor: url({% url 'img/鼠标悬停.png' %}), pointer;
+    }
+
+    .par {
+        width: 300px;
+        height: 30px;
+        margin: 80px auto;
+        text-align: center;
+        font-size: 20px;
+        line-height: 30px;
+        background-color: #ff000020;
+        overflow: hidden;
+    }
+
+    .par .show:hover {
+        padding-top: 30px;
+    }
+
+    .par .hover-show {
+        margin-top: -60px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .img {
+        text-align: center;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .img-content h1 {
+        color: #fff;
+        text-transform: uppercase;
+        transform: translateY(20px);
+        transition: 0.4s;
+    }
+
+    .img:hover .img-content h1 {
+        transform: translateY(0px);
+    }
+
+    .icons {
+        position: absolute;
+    }
+
+    .icon {
+        text-decoration: none;
+        color: #333;
+        font-size: 22px;
+        margin: 0 10px;
+        transform: translateY(80px);
+    }
+    .icon:hover {
+        color: #3498db;
+    }
+
+    .more {
+        width: 300px;
+        height: 30px;
+        margin: 80px auto;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        background-color: #ff000020;
+    }
+
+    .menu-box {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+    }
+
+    .menu-button {
+        width: 50px;
+        height: 50px;
+        background-color: #cbaeae;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px #b49a9a;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+    }
+
+    .menu-button:hover {
+        background-color: #e1c1c1;
+        box-shadow: 0 0 0 4px #cbaeae;
+    }
+
+    .menu-button .line-box {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: transform 0.3s ease-out;
+    }
+
+    .menu-button .line {
+        background-color: #fff;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+    }
+
+    .menu-button .line:first-child {
+        width: 50%;
+        transform-origin: right;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-button .line:last-child {
+        width: 50%;
+        align-self: flex-end;
+        transform-origin: left;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-list {
+        width: 120px;
+        height: 240px;
+        background-color: white;
+        border-radius: 8px;
+        list-style: none;
+        padding: 6px;
+        box-shadow: 0 0 0 4px #b49a9a;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        opacity: 0;
+        transform: scale(0);
+        transform-origin: bottom right;
+        transition: 0.3s ease;
+        transition-delay: 0.1s;
+    }
+
+    .menu-list li {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: #cbaeae;
+        cursor: pointer;
+        position: relative;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: 0.2s ease-in;
+    }
+
+    .menu-list li:hover {
+        color: black;
+    }
+
+    .menu-list li::before {
+        content: "";
+        width: calc(100% - 24px);
+        height: 1px;
+        background-color: #b49a9a;
+        position: absolute;
+        bottom: 0;
+        left: 12px;
+    }
+
+    .menu-list li:last-child::before {
+        display: none;
+    }
+
+    .menu-list .fa {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-list a {
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 8px;
+    }
+
+    .active .line-box {
+        transform: rotate(-45deg);
+    }
+
+    .active .line-box .line:first-child {
+        transform: rotate(-90deg) translateX(1px);
+    }
+
+    .active .line-box .line:last-child {
+        transform: rotate(-90deg) translateX(-1px);
+    }
+
+    .active .menu-list {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .active .menu-list li {
+        animation: fade-in-item 0.4s linear forwards;
+    }
+
+    .active .menu-list li:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .active .menu-list li:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .active .menu-list li:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .active .menu-list li:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .active .menu-list li:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .active .menu-list li:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+    @keyframes fade-in-item {
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+</style>
+<!-- 从这里开始 -->
+<body id="body">
+<div class="par">
+    <div class="show">
+        Nhu Xuan Hua
+        <div class="hover-show">
+            <a href="{% url 'nxh' %}">About she</a>
+        </div>
+    </div>
+</div>
+<hr>
+<br><br><br>
+<!-- 这里是标题部分，把作者改成其他的 -->
+<!-- 下面是图片，src里面是图片的相对路径，在这里改 -->
+<div class="img">
+    {% load static %}
+    <img src="{% static 'img/NXH1.jpg' %}" width="1000px">
+    <div class="img-content">
+        <h1>Maison Margiela</h1>
+        <!-- 这是标题 -->
+        <div class="icons">
+            <a href="#" class="icon fas fa-heart"></a>
+            <a href="#" class="icon fas fa-comment"></a>
+            <a href="#" class="icon fas fa-share"></a>
+        </div>
+        <!-- 这里其实是点赞评论转发的那三个图标，可以不用 ，后面都是复制粘贴了-->
+    </div>
+</div>
+<br><br><br>
+<div class="img">
+    <img src="{% static 'img/NXH2.jpg' %}" width="1000px">
+    <div class="img-content">
+        <h1>Antidote</h1>
+        <div class="icons">
+            <a href="#" class="icon fas fa-heart"></a>
+            <a href="#" class="icon fas fa-comment"></a>
+            <a href="#" class="icon fas fa-share"></a>
+        </div>
+    </div>
+</div>
+<br><br><br>
+<div class="img">
+    <img src="{% static 'img/NXH3.jpg' %}" width="1000px">
+    <div class="img-content">
+        <h1>CUUCH</h1>
+        <div class="icons">
+            <a href="#" class="icon fas fa-heart"></a>
+            <a href="#" class="icon fas fa-comment"></a>
+            <a href="#" class="icon fas fa-share"></a>
+        </div>
+    </div>
+</div>
+<div class="more">
+    <a href="https://www.nhuxuanhua.com/">More of her creations</a>
+</div>
+<hr>
+<div class="par">
+    <div class="show">
+        Nhu Xuan Hua
+        <div class="hover-show">
+            <a href="{% url 'nxh' %}">About she</a>
+        </div>
+    </div>
+</div>
+<hr>
+<br><br><br>
+<div class="kaiguan">
+    <div class="bai" id="anniu"></div>
+</div>
+<div class="menu-box">
+    <div class="menu-button">
+        <div class="line-box">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <ul class="menu-list">
+        <li><i class="fa fa-fw fa-home"></i><a style="color:inherit;" href="{% url 'home2' %}">Home</a></li>
+        <li><i class="fa fa-clone"></i><a style="color:inherit;" href="{% url 'author' %}">Author</a></li>
+        <li><i class="fa fa-image"></i><a style="color:inherit;" href="{% url 'shicha' %}">Layout</a></li>
+        <li><i class="fa fa-yelp"></i><a style="color:inherit;" href="{% url 'light' %}">Light</a></li>
+        <li><i class="fa fa-instagram"></i><a style="color:inherit;" href="{% url 'maoboli' %}">Editing</a></li>
+        <li><i class="fa fa-sliders"></i><a style="color:inherit;" href="{% url 'awa' %}">Camera</a></li>
+    </ul>
+</div>
+<script>
+    function clickEffect() {//鼠标点击特效
+        let balls = [];
+        let longPressed = false;
+        let longPress;
+        let multiplier = 0;
+        let width, height;
+        let origin;
+        let normal;
+        let ctx;
+        const colours = ["#F73859", "#14FFEC", "#00E0FF", "#FF99FE", "#FAF15D"];
+        const canvas = document.createElement("canvas");
+        document.body.appendChild(canvas);
+        canvas.setAttribute("style", "width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none;");
+        const pointer = document.createElement("span");
+        pointer.classList.add("pointer");
+        document.body.appendChild(pointer);
+
+        if (canvas.getContext && window.addEventListener) {
+            ctx = canvas.getContext("2d");
+            updateSize();
+            window.addEventListener('resize', updateSize, false);
+            loop();
+            window.addEventListener("mousedown", function (e) {
+                pushBalls(randBetween(10, 20), e.clientX, e.clientY);
+                document.body.classList.add("is-pressed");
+                longPress = setTimeout(function () {
+                    document.body.classList.add("is-longpress");
+                    longPressed = true;
+                }, 500);
+            }, false);
+            window.addEventListener("mouseup", function (e) {
+                clearInterval(longPress);
+                if (longPressed === true) {
+                    document.body.classList.remove("is-longpress");
+                    pushBalls(randBetween(50 + Math.ceil(multiplier), 100 + Math.ceil(multiplier)), e.clientX, e.clientY);
+                    longPressed = false;
+                }
+                document.body.classList.remove("is-pressed");
+            }, false);
+            window.addEventListener("mousemove", function (e) {
+                let x = e.clientX;
+                let y = e.clientY;
+                pointer.style.top = y + "px";
+                pointer.style.left = x + "px";
+            }, false);
+        } else {
+            console.log("canvas or addEventListener is unsupported!");
+        }
+
+
+        function updateSize() {
+            canvas.width = window.innerWidth * 2;
+            canvas.height = window.innerHeight * 2;
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.scale(2, 2);
+            width = (canvas.width = window.innerWidth);
+            height = (canvas.height = window.innerHeight);
+            origin = {
+                x: width / 2,
+                y: height / 2
+            };
+            normal = {
+                x: width / 2,
+                y: height / 2
+            };
+        }
+
+        class Ball {
+            constructor(x = origin.x, y = origin.y) {
+                this.x = x;
+                this.y = y;
+                this.angle = Math.PI * 2 * Math.random();
+                if (longPressed == true) {
+                    this.multiplier = randBetween(14 + multiplier, 15 + multiplier);
+                } else {
+                    this.multiplier = randBetween(6, 12);
+                }
+                this.vx = (this.multiplier + Math.random() * 0.5) * Math.cos(this.angle);
+                this.vy = (this.multiplier + Math.random() * 0.5) * Math.sin(this.angle);
+                this.r = randBetween(8, 12) + 3 * Math.random();
+                this.color = colours[Math.floor(Math.random() * colours.length)];
+            }
+
+            update() {
+                this.x += this.vx - normal.x;
+                this.y += this.vy - normal.y;
+                normal.x = -2 / window.innerWidth * Math.sin(this.angle);
+                normal.y = -2 / window.innerHeight * Math.cos(this.angle);
+                this.r -= 0.3;
+                this.vx *= 0.9;
+                this.vy *= 0.9;
+            }
+        }
+
+        function pushBalls(count = 1, x = origin.x, y = origin.y) {
+            for (let i = 0; i < count; i++) {
+                balls.push(new Ball(x, y));
+            }
+        }
+
+        function randBetween(min, max) {
+            return Math.floor(Math.random() * max) + min;
+        }
+
+        function loop() {
+            ctx.fillStyle = "rgba(255, 255, 255, 0)";
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < balls.length; i++) {
+                let b = balls[i];
+                if (b.r < 0) continue;
+                ctx.fillStyle = b.color;
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2, false);
+                ctx.fill();
+                b.update();
+            }
+            if (longPressed == true) {
+                multiplier += 0.2;
+            } else if (!longPressed && multiplier >= 0) {
+                multiplier -= 0.4;
+            }
+            removeBall();
+            requestAnimationFrame(loop);
+        }
+
+        function removeBall() {
+            for (let i = 0; i < balls.length; i++) {
+                let b = balls[i];
+                if (b.x + b.r < 0 || b.x - b.r > width || b.y + b.r < 0 || b.y - b.r > height || b.r < 0) {
+                    balls.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    clickEffect();//调用特效函数
+    //日夜切换
+    var anniu = document.getElementById('anniu');
+    var kaiguan = document.querySelector('.kaiguan');
+    var body = document.getElementById('body');
+    var temp = 1;
+    anniu.addEventListener('click', function () {
+        if (temp == 1) {
+            this.className = 'hei';
+            temp = 0;
+            kaiguan.style.border = '2px solid  rgb(11, 243, 81)';
+            body.style.backgroundColor = 'rgb(7, 7, 29)';
+            body.style.color = 'white';
+        } else {
+            this.className = 'bai';
+            temp = 1;
+            kaiguan.style.border = '2px solid black';
+            body.style.backgroundColor = '#ddd';
+            body.style.color = 'black';
+        }
+
+    })
+    const menu_box = document.querySelector('.menu-box');
+    const menu_button = document.querySelector('.menu-button');
+
+    menu_button.addEventListener('click', function () {
+        menu_box.classList.toggle('active');
+    })
+</script>
+</body>
+</html>

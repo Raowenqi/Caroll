@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/w3.css' %}">
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+<style>
+    p {
+        position: relative;
+        left: 24px;
+        width: 90%;
+    }
+</style>
+<body>
+
+<!-- Navigation -->
+<nav class="w3-bar w3-black">
+    <a style="color:inherit;" href="{% url 'home2' %}" class="w3-button w3-bar-item">Home</a>
+    <a style="color:inherit;" href="{% url 'author' %}" class="w3-button w3-bar-item">Author</a>
+    <a style="color:inherit;" href="{% url 'pubuliu' %}" class="w3-button w3-bar-item">Class</a>
+    <a style="color:inherit;" href="{% url 'shicha' %}" class="w3-button w3-bar-item">Layout</a>
+    <a style="color:inherit;" href="{% url 'light' %}" class="w3-button w3-bar-item">Camera</a>
+    <a style="color:inherit;" href="{% url 'index' %}" class="w3-button w3-bar-item">Aesthetic</a>
+    <a style="color:inherit;" href="{% url 'maoboli' %}" class="w3-button w3-bar-item">Editing</a>
+</nav>
+
+<!-- Slide Show -->
+<section>
+    <img class="mySlides" src="{% static 'img/1.jpg' %}"
+         style="width:100%" alt="">
+    <img class="mySlides" src="{% static 'img/2.jpg' %}"
+         style="width:100%" alt="">
+    <img class="mySlides" src="{% static 'img/3.jpg' %}"
+         style="width:100%" alt="">
+</section>
+
+<!-- Band Description -->
+<section class="w3-container w3-center w3-content" style="max-width:600px">
+    <h2 class="w3-wide">Light</h2>
+    <p class="w3-opacity"><i>Light plays a crucial role in photography, since photography is essentially about capturing
+        light.</i></p>
+    <p class="w3-justify">1.Brightness and contrast: The brightness and contrast of a photograph can be adjusted by
+        manipulating the strength and position of the light source.
+        <br>2.Color: The color and intensity of light also affect the colors of a photograph.
+        <br>3.Texture and shape: Light can emphasize the texture and shape of an object by shining on it at a specific
+        angle and position.
+        <br>4.Motion: In capturing sports and other forms of motion, the speed and position of light can affect the blur
+        and sense of motion in the photograph.<br><br><br></p>
+</section>
+
+<!-- Band Members -->
+<section class="w3-row-padding w3-center w3-light-grey">
+    <article class="w3-third">
+        <p>Smooth light</p>
+        <img src="../shun.jpg" alt="###" style="width:90%">
+        <p>we often say that the front light, the light source and the direction of the camera is the same as the smooth
+            light, no matter which direction the person is facing;
+            <br>this light can be a full expression of the details of the face of the person being photographed, the
+            transition between light and dark is not obvious.</p>
+    </article>
+    <article class="w3-third">
+        <p>Side light</p>
+        <img src="../ce.jpg" alt="###" style="width:90%">
+        <p>can be stronger to express the three-dimensional sense of the character's face and lines, while producing a
+            more obvious light and dark transition effect, that is, let the light from the side of the character.
+            <br>The effect in the figure below, we can adjust the intensity of light through some artificial influence.
+        </p>
+    </article>
+    <article class="w3-third">
+        <p>Backlighting</p>
+        <img src="../ni.jpg" alt="###" style="width:90%">
+        <p>light source from the back of the subject, mainly used to outline the shape of the subject's silhouette.
+            <br>Also known as silhouette light, because by choosing a different metering point, you can shoot a stronger
+            and pure black shadow of the person, so that you can shoot a more beautiful silhouette light and silhouette
+            effect.</p>
+    </article>
+</section>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-black w3-xlarge">
+    <a href="#"><i class="fa fa-facebook-official"></i></a>
+    <a href="#"><i class="fa fa-pinterest-p"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-flickr"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+    <p class="w3-medium">
+        awa
+    </p>
+</footer>
+
+<script>
+    // Automatic Slideshow - change image every 3 seconds
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) {
+            myIndex = 1
+        }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 3000);
+    }
+</script>
+
+</body>
+</html>
